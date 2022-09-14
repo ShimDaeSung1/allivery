@@ -22,7 +22,7 @@ import java.util.List;
 @Component
 public class JwtTokenProvider { //JWT 토큰을 생성 및 검증 모듈
     //https://developerbee.tistory.com/201?category=474042
-    @Value("spring.jwt.secret") 
+    @Value("spring.jwt.secret")
     private String secretKey;
 
     private long tokenValidMillisecond = 1000L * 60 * 60; //1시간 토큰 유효
