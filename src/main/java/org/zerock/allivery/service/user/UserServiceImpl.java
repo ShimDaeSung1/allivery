@@ -33,10 +33,10 @@ public class UserServiceImpl implements UserService {
 
         log.info(signupUserDTO.toString());
         String email = signupUserDTO.getEmail();
-        String userName = signupUserDTO.getUserName();
+        String userName = signupUserDTO.getNickName();
 
         User user1 = userRepository.findByEmail(email).orElse(null);
-        User user2 = userRepository.findByUserName(userName);
+        User user2 = userRepository.findByNickName(userName);
 
         if(user1 != null){
             log.error(user1.toString());
@@ -47,7 +47,7 @@ public class UserServiceImpl implements UserService {
         }
 
         User user = User.builder()
-                .userName(signupUserDTO.getUserName())
+                .nickName(signupUserDTO.getNickName())
                 .email(signupUserDTO.getEmail())
                 .password(encoder.encode(signupUserDTO.getPassword()))
                 .build();
@@ -71,7 +71,7 @@ public class UserServiceImpl implements UserService {
                 TokenUserDTO.builder()
                         .token(jwtTokenProvider.createToken(String.valueOf(user.getEmail()), user.getRoles()))
                         .userId(user.getId())
-                        .userName(user.getUsername())
+                        .nickName(user.getNickName())
                         .build()
         );
     }

@@ -8,6 +8,6 @@ import java.util.List;
 public class SignupUserDTO {
     private String email;
     private String password;
-    private String userName;
+    private String nickName;
     private List<String> roles;
 }

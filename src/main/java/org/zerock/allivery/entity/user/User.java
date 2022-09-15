@@ -26,7 +26,7 @@ public class User implements UserDetails {
     private Long id;
 
     @Column(nullable = false, length = 50, unique = true)
-    private String userName;
+    private String nickName;
 
     //로그인시 필요한 아이디(이메일)
     @Column(nullable = false, length = 100, unique = true)
@@ -37,21 +37,27 @@ public class User implements UserDetails {
 
     @ElementCollection(fetch = FetchType.EAGER)
     @Builder.Default
-    private List<String> roles = new ArrayList<>(); // 회원이 가지고 있는 정보들
+    private List<String> Roles = new ArrayList<>(); // 회원이 가지고 있는 정보들
+
+
+//    @Override
+//    public String getPassword(){
+//        return this.getPassword();
+//    }
 
     @Override
-    public Collection<? extends GrantedAuthority> getAuthorities(){
-        return this.roles.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return this.Roles.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
+    }
+
+    @Override
+    public String getPassword() {
+        return this.password;
     }
 
     @Override
     public String getUsername() {
-        return this.getUsername();
-    }
-
-    @Override
-    public String getPassword(){
-        return this.getPassword();
+        return this.email;
     }
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
@@ -59,16 +65,19 @@ public class User implements UserDetails {
     public boolean isAccountNonExpired() {
         return true;
     }
+
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Override
     public boolean isAccountNonLocked() {
         return true;
     }
+
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Override
     public boolean isCredentialsNonExpired() {
         return true;
     }
+
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Override
     public boolean isEnabled() {
