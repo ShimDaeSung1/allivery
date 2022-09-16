@@ -51,6 +51,8 @@ public class UserServiceImpl implements UserService {
                 .email(signupUserDTO.getEmail())
                 .password(encoder.encode(signupUserDTO.getPassword()))
                 .build();
+        String serialNum = user.getNickName() + user.getCreateTime().toString();
+        user.setSerialNum(serialNum);
 
         userRepository.save(user);
 

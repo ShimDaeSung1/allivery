@@ -2,11 +2,13 @@ package org.zerock.allivery.entity.user;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -38,6 +40,13 @@ public class User implements UserDetails {
     @ElementCollection(fetch = FetchType.EAGER)
     @Builder.Default
     private List<String> Roles = new ArrayList<>(); // 회원이 가지고 있는 정보들
+
+    @Column(nullable = false, length = 50)
+    private String serialNum;
+
+    @CreationTimestamp
+    @Column(name = "created_at")
+    private Timestamp createTime;
 
 
 //    @Override
