@@ -34,15 +34,12 @@ public class OAuthService {
             /*
              * 회원가입일때와 로그인일때를 구분해서 JWT 발급이 가능해야함
              */
-
-            LocalDateTime dateTime = LocalDateTime.now();
-
             userRepository.save(
                     User.builder()
                             .email(email)
                             .nickName(name)
                             .password("kakao")
-                            .serialNum(name + dateTime)
+                            .serialNum(name + LocalDateTime.now())
                             .build()
             );
             return new ResponseEntity<>("REGISTER_TRUE", HttpStatus.OK);
