@@ -12,6 +12,7 @@ import org.zerock.allivery.entity.user.User;
 import org.zerock.allivery.entity.user.UserRepository;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 
 @Service
 @RequiredArgsConstructor
@@ -29,20 +30,22 @@ public class OAuthService {
         KakaoUserInfoDto kakaoUser = kakaoOAuth.getUserInfo(userInfoResponse);
         String email = kakaoUser.getKakao_account().getEmail();
         String name = kakaoUser.getProperties().getNickname();
-
         if (!userRepository.existsByEmail(email)) {
             /*
              * 회원가입일때와 로그인일때를 구분해서 JWT 발급이 가능해야함
              */
+
+            LocalDateTime dateTime = LocalDateTime.now();
+
             userRepository.save(
                     User.builder()
                             .email(email)
                             .nickName(name)
                             .password("kakao")
-                            .serialNum("TEST")
+                            .serialNum(name + dateTime)
                             .build()
             );
-            return new ResponseEntity<>("TRUE", HttpStatus.OK);
+            return new ResponseEntity<>("REGISTER_TRUE", HttpStatus.OK);
             /*
              * body에 클라이언트로 보낼 JSON, 현재 임의로 String
              */
