@@ -4,9 +4,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.zerock.allivery.config.KakaoOAuth;
 import org.zerock.allivery.dto.OAuth.KakaoOAuthTokenDto;
@@ -21,13 +18,9 @@ import java.io.IOException;
 @Slf4j
 public class OAuthService {
     private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
     private final KakaoOAuth kakaoOAuth;
-    private final AuthenticationManagerBuilder authenticationManagerBuilder;
-    UsernamePasswordAuthenticationToken authenticationToken = null;
 
     // Service
-
     // 카카오 로그인 서비스
     public ResponseEntity<String> kakaoLogin(String code) throws IOException {
         ResponseEntity<String> accessTokenResponse = kakaoOAuth.requestAccessToken(code);

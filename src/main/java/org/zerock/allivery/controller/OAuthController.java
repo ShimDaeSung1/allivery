@@ -25,7 +25,6 @@ public class OAuthController {
         response.sendRedirect("https://kauth.kakao.com/oauth/authorize?client_id=b6f8914d44b9618e47be1c31c0867db2&redirect_uri=http://localhost:8080/oauth/kakao/login&response_type=code");
     }
 
-    //http://localhost:8080/oauth/kakao/login
     @GetMapping("kakao/login")
     public ResponseEntity<String> kakaoLogin(
             @RequestParam(name = "code") String code) throws IOException {
