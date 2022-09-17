@@ -1,5 +1,6 @@
 package org.zerock.allivery.entity.user;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -41,7 +42,7 @@ public class User implements UserDetails {
     @Builder.Default
     private List<String> Roles = new ArrayList<>(); // 회원이 가지고 있는 정보들
 
-    @Column(nullable = false, length = 50)
+    @Column(nullable = true, length = 50)
     private String serialNum;
 
     @CreationTimestamp

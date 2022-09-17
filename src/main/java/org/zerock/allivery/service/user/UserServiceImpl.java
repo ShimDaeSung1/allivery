@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.zerock.allivery.config.JwtTokenProvider;
+import org.zerock.allivery.config.security.JwtTokenProvider;
 import org.zerock.allivery.dto.user.LoginDTO;
 import org.zerock.allivery.dto.user.SignupUserDTO;
 import org.zerock.allivery.dto.user.TokenUserDTO;
@@ -51,9 +51,11 @@ public class UserServiceImpl implements UserService {
                 .email(signupUserDTO.getEmail())
                 .password(encoder.encode(signupUserDTO.getPassword()))
                 .build();
+
+        userRepository.save(user);
+
         String serialNum = user.getNickName() + user.getCreateTime().toString();
         user.setSerialNum(serialNum);
-
         userRepository.save(user);
 
         return signupUserDTO;

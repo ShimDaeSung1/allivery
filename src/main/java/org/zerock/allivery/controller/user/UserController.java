@@ -1,17 +1,15 @@
-package org.zerock.allivery.controller;
+package org.zerock.allivery.controller.user;
 
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
-import org.zerock.allivery.config.JwtTokenProvider;
+import org.zerock.allivery.config.security.JwtTokenProvider;
 import org.zerock.allivery.dto.user.LoginDTO;
 import org.zerock.allivery.dto.user.SignupUserDTO;
 import org.zerock.allivery.dto.user.TokenUserDTO;
-import org.zerock.allivery.entity.user.User;
 import org.zerock.allivery.entity.user.UserRepository;
 import org.zerock.allivery.model.SingleResult;
 import org.zerock.allivery.service.response.ResponseService;
@@ -31,7 +29,7 @@ public class UserController {
 
     @ApiOperation(value = "로그인", notes = "이메일 회원 로그인")
     @PostMapping("/")
-    public SingleResult<TokenUserDTO> singin(@RequestBody LoginDTO loginDTO){
+    public SingleResult<TokenUserDTO> signin(@RequestBody LoginDTO loginDTO){
         return userService.login(loginDTO);
     }
 
