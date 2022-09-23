@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.zerock.allivery.config.GoogleOAuth;
+import org.zerock.allivery.dto.user.TokenUserDTO;
+import org.zerock.allivery.entity.user.User;
+import org.zerock.allivery.model.SingleResult;
 import org.zerock.allivery.service.OAuthService;
 
 import javax.servlet.http.HttpServletResponse;
@@ -29,7 +32,7 @@ public class OAuthController {
     }
 
     @GetMapping("kakao/login")
-    public ResponseEntity<String> kakaoLogin(
+    public SingleResult<TokenUserDTO> kakaoLogin(
             @RequestParam(name = "code") String code) throws IOException {
         log.info("카카오 API 서버 code : " + code);
         return oAuthService.kakaoLogin(code);
@@ -41,7 +44,7 @@ public class OAuthController {
     }
 
     @GetMapping("/google/login")
-    public ResponseEntity<String> callback(
+    public SingleResult<TokenUserDTO> callback(
             @RequestParam(name = "code") String code) throws IOException {
         log.info("구글 API 서버 code : " + code);
         return oAuthService.googlelogin(code);
