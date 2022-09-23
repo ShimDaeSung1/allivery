@@ -5,7 +5,7 @@ import org.zerock.allivery.entity.user.User;
 
 public interface QrService {
 
-    void register(User user);
+    Long register(User user);
 
     String open(Long qrId, User user);
 }

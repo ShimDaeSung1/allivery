@@ -27,13 +27,13 @@ public class QrController {
 
     //주문버튼 클릭 시 qr코드 생성됨
     @PostMapping("/")
-    public ResponseEntity register(@AuthenticationPrincipal User user){
+    public ResponseEntity<Long> register(@AuthenticationPrincipal User user){
 
         log.info("token ???");
         log.info("asdads : "+user.getSerialNum());
-        qrService.register(user);
+        Long qrId = qrService.register(user);
 
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok(qrId);
     }
 
 //    QR코드 인증, 상자 문 열기

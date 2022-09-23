@@ -19,14 +19,16 @@ public class QrServiceImpl implements QrService{
 
     //주문시 큐알코드 생성
     @Override
-    public void register(User user) {
+    public Long register(User user) {
         log.info("user.getSerialNum:"+user.getSerialNum());
 
         Qr qr = Qr.builder()
                 .serialNum(user.getSerialNum())
                 .build();
 
-        qrRepository.save(qr);
+        Qr id = qrRepository.save(qr);
+        log.info("qr ::"+id.getQrId());
+        return id.getQrId();
     }
 
     @Override
